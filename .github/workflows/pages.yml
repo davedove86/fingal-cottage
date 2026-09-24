@@ -26,6 +26,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - run: npm install -g npm@10.9.8
       - run: npm ci
       - run: npm run build
         env:
