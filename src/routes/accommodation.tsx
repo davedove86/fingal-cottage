@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { Lightbox, PhotoButton, useGallery, type Shot } from "@/components/lightbox";
 import { PageHero, PageWithCard, Shell } from "@/components/shell";
+import { publicUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/accommodation")({
   head: () => ({
@@ -18,15 +19,15 @@ export const Route = createFileRoute("/accommodation")({
 });
 
 const exterior = [
-  { src: "/cottage/front-white.jpg", alt: "Outside of Fingal Cottage" },
-  { src: "/cottage/front-bench.jpg", alt: "Garden and Fingal Cottage" },
-  { src: "/cottage/fingal-garden.jpg", alt: "Fingal Cottage by the river" },
-  { src: "/cottage/front-garden.jpg", alt: "front of Fingal Cottage" },
-  { src: "/cottage/13.jpg", alt: "View from Fingal Cottage" },
-  { src: "/cottage/14.jpg", alt: "View from Fingal Cottage" },
-  { src: "/cottage/15.jpg", alt: "View from Fingal Cottage" },
-  { src: "/cottage/16.jpg", alt: "View from Fingal Cottage" },
-  { src: "/cottage/outside-closer-view.jpg", alt: "View from Fingal Cottage" },
+  { src: publicUrl("/cottage/front-white.jpg"), alt: "Outside of Fingal Cottage" },
+  { src: publicUrl("/cottage/front-bench.jpg"), alt: "Garden and Fingal Cottage" },
+  { src: publicUrl("/cottage/fingal-garden.jpg"), alt: "Fingal Cottage by the river" },
+  { src: publicUrl("/cottage/front-garden.jpg"), alt: "front of Fingal Cottage" },
+  { src: publicUrl("/cottage/13.jpg"), alt: "View from Fingal Cottage" },
+  { src: publicUrl("/cottage/14.jpg"), alt: "View from Fingal Cottage" },
+  { src: publicUrl("/cottage/15.jpg"), alt: "View from Fingal Cottage" },
+  { src: publicUrl("/cottage/16.jpg"), alt: "View from Fingal Cottage" },
+  { src: publicUrl("/cottage/outside-closer-view.jpg"), alt: "View from Fingal Cottage" },
 ];
 
 function Photos({ images }: { images: Shot[] }) {
@@ -74,7 +75,7 @@ function Room({
 function Accommodation() {
   const grounds = useGallery();
   const outside: Shot[] = [
-    { src: "/cottage/living-room-with-view.jpg", alt: "Fingal Cottage Lounge" },
+    { src: publicUrl("/cottage/living-room-with-view.jpg"), alt: "Fingal Cottage Lounge" },
     ...exterior,
   ];
 
@@ -122,9 +123,9 @@ function Accommodation() {
           <Room
             title="Lounge"
             images={[
-              { src: "/cottage/living-room-with-view.jpg", alt: "Fingal Cottage Lounge" },
-              { src: "/cottage/living-room-2.jpg", alt: "Fingal Cottage Living Room" },
-              { src: "/cottage/dining-alcove.jpg", alt: "Lounge view of the garden" },
+              { src: publicUrl("/cottage/living-room-with-view.jpg"), alt: "Fingal Cottage Lounge" },
+              { src: publicUrl("/cottage/living-room-2.jpg"), alt: "Fingal Cottage Living Room" },
+              { src: publicUrl("/cottage/dining-alcove.jpg"), alt: "Lounge view of the garden" },
             ]}
           >
             <p>
@@ -144,7 +145,7 @@ function Accommodation() {
 
           <Room
             title="Kitchen"
-            images={[{ src: "/cottage/9.jpg", alt: "Picture of Fingal Cottage Kitchen" }]}
+            images={[{ src: publicUrl("/cottage/9.jpg"), alt: "Picture of Fingal Cottage Kitchen" }]}
           >
             <p>
               There is a modern, well equipped kitchen with washer/dryer,
@@ -162,7 +163,7 @@ function Accommodation() {
           <Room
             title="Master bedroom & ensuite"
             images={[
-              { src: "/cottage/master-bedroom.jpg", alt: "Master Bedroom of Fingal Cottage" },
+              { src: publicUrl("/cottage/master-bedroom.jpg"), alt: "Master Bedroom of Fingal Cottage" },
             ]}
           >
             <p>
@@ -181,8 +182,8 @@ function Accommodation() {
           <Room
             title="Twin bedrooms"
             images={[
-              { src: "/cottage/twin-room.jpg", alt: "Fingal Cottage Twin Room" },
-              { src: "/cottage/bunk-room.jpg", alt: "Fingal Cottage bunk beds" },
+              { src: publicUrl("/cottage/twin-room.jpg"), alt: "Fingal Cottage Twin Room" },
+              { src: publicUrl("/cottage/bunk-room.jpg"), alt: "Fingal Cottage bunk beds" },
             ]}
           >
             <p>
@@ -198,7 +199,7 @@ function Accommodation() {
 
           <Room
             title="Bathroom"
-            images={[{ src: "/cottage/12.jpg", alt: "Fingal Cottage Bathroom" }]}
+            images={[{ src: publicUrl("/cottage/12.jpg"), alt: "Fingal Cottage Bathroom" }]}
           >
             <p>
               The family bathroom has a wc, handbasin, bath and a shower cubicle

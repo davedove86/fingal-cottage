@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { Lightbox, PhotoButton, useGallery } from "@/components/lightbox";
 import { inlineLink, PageHero, PageWithCard, Shell } from "@/components/shell";
+import { publicUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/see")({
   head: () => ({
@@ -44,10 +45,10 @@ const dining = [
 ];
 
 const birds = [
-  ["/cottage/golden-eagle.jpg", "Picture of a Golden Eagle"],
-  ["/cottage/haliaeetus.jpg", "Picture of a Haliaeetus"],
-  ["/cottage/puffin.jpg", "Picture of a Puffin"],
-  ["/cottage/fulmar.jpg", "Picture of a Fulmar"],
+  [publicUrl("/cottage/golden-eagle.jpg"), "Picture of a Golden Eagle"],
+  [publicUrl("/cottage/haliaeetus.jpg"), "Picture of a Haliaeetus"],
+  [publicUrl("/cottage/puffin.jpg"), "Picture of a Puffin"],
+  [publicUrl("/cottage/fulmar.jpg"), "Picture of a Fulmar"],
 ] as const;
 
 function OutList({ items }: { items: { href: string; label: string }[] }) {

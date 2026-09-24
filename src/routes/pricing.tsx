@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FtbReviews } from "@/components/ftb-reviews";
 import { BookLink, BookingCard, inlineLink, PageHero, Shell } from "@/components/shell";
-import { PHONE_LABEL, PHONE_TEL, PRICES } from "@/lib/site";
+import { PHONE_LABEL, PHONE_TEL, PRICES, publicUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
@@ -106,7 +106,7 @@ function Pricing() {
           <p>A booking fee may be incurred depending on how the booking is settled.</p>
           <p className="flex flex-wrap items-center gap-3">
             We accept payment via Visa and Mastercard.
-            <img src="/cottage/visa--logo.png" alt="Visa" className="h-8 w-auto" />
+            <img src={publicUrl("/cottage/visa--logo.png")} alt="Visa" className="h-8 w-auto" />
           </p>
           <p>The balance will be due in full 6 weeks prior to your arrival.</p>
           <p>It is advisable to take out travel insurance in the event you need to cancel your holiday.</p>

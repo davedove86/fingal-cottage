@@ -8,6 +8,13 @@ export const PHONE_TEL = "07870293810";
 export const PHONE_LABEL = "07870 293810";
 export const EMAIL = "fingalcottagemull@gmail.com";
 
+/** Public file URL. Stays `/…` on the live site, and gains the GitHub Pages prefix when built for Pages. */
+export function publicUrl(path: string) {
+  const base = import.meta.env.BASE_URL || "/";
+  const normalized = path.startsWith("/") ? path.slice(1) : path;
+  return `${base}${normalized}`;
+}
+
 export const NAV = [
   { to: "/", label: "Home" },
   { to: "/accommodation", label: "Accommodation" },

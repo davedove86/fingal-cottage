@@ -3,7 +3,7 @@ import { Baby, Flame, PawPrint, Wifi } from "lucide-react";
 import { FtbReviews } from "@/components/ftb-reviews";
 import { Lightbox, PhotoButton, useGallery } from "@/components/lightbox";
 import { BookingCard, Shell } from "@/components/shell";
-import { FACEBOOK_PAGE, QUOTES } from "@/lib/site";
+import { FACEBOOK_PAGE, QUOTES, publicUrl } from "@/lib/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,11 +20,11 @@ export const Route = createFileRoute("/")({
 });
 
 const photos = [
-  { src: "/cottage/wider-shot.jpg", alt: "White cottages beside Lochdon with hills beyond" },
-  { src: "/cottage/front-white.jpg", alt: "Outside of Fingal Cottage" },
-  { src: "/cottage/living-room-with-view.jpg", alt: "Fingal Cottage Lounge" },
-  { src: "/cottage/13.jpg", alt: "Sunset over the loch from Fingal Cottage" },
-  { src: "/cottage/front-garden.jpg", alt: "front of Fingal Cottage" },
+  { src: publicUrl("/cottage/wider-shot.jpg"), alt: "White cottages beside Lochdon with hills beyond" },
+  { src: publicUrl("/cottage/front-white.jpg"), alt: "Outside of Fingal Cottage" },
+  { src: publicUrl("/cottage/living-room-with-view.jpg"), alt: "Fingal Cottage Lounge" },
+  { src: publicUrl("/cottage/13.jpg"), alt: "Sunset over the loch from Fingal Cottage" },
+  { src: publicUrl("/cottage/front-garden.jpg"), alt: "front of Fingal Cottage" },
 ];
 
 const features = [
@@ -54,19 +54,19 @@ const sleeps = [
   {
     title: "Master bedroom",
     text: "King bed and ensuite, with views of Dun da Ghaoithe.",
-    src: "/cottage/master-bedroom.jpg",
+    src: publicUrl("/cottage/master-bedroom.jpg"),
     alt: "Master Bedroom of Fingal Cottage",
   },
   {
     title: "Twin room",
     text: "Two singles at the front of the house, looking onto the loch.",
-    src: "/cottage/twin-room.jpg",
+    src: publicUrl("/cottage/twin-room.jpg"),
     alt: "Fingal Cottage Twin Room",
   },
   {
     title: "Bunk room",
     text: "Pine bunk beds and a chest of drawers. Suitable for adults or children.",
-    src: "/cottage/bunk-room.jpg",
+    src: publicUrl("/cottage/bunk-room.jpg"),
     alt: "Fingal Cottage bunk beds",
   },
 ];
