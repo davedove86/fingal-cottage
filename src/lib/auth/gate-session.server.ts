@@ -15,8 +15,8 @@ import {
 } from "./gate-identity.server";
 import { GATE_SESSION_MARKER_COOKIE } from "./gate-session-marker";
 
-export const GATE_PROVIDER_ID = "grok-gate";
-const GATE_ACCOUNT_ISSUER = "https://grok.com";
+export const GATE_PROVIDER_ID = "gate";
+const GATE_ACCOUNT_ISSUER = "https://gate.example.com";
 const LOG = "[gate-identity]";
 
 type GateAccount = Parameters<typeof handleOAuthUserInfo>[1]["account"];
@@ -207,7 +207,7 @@ function removeRequestCookie(headers: Headers, name: string): void {
 
 export function gateIdentitySessions() {
   return {
-    id: "grok-gate-identity",
+    id: "gate-identity",
     hooks: {
       before: [
         {
