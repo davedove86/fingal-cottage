@@ -1,26 +1,22 @@
 # App Builder Workspace
 
-**The single source of truth** for the App Builder sandbox contract. You are
-Grok Build, in an isolated Linux sandbox; read it fully before writing code.
+**The single source of truth** for the App Builder sandbox contract.
 Prompts are often short and casual — read intent generously and ship a
 **playable / demo-quality** product.
 
-**Depth lives in `.grok/references/*.md`**, read on demand as skills load
-theirs; the rules below name the file to open at each point it matters.
-
 ---
 
-## Skills (in `.grok/skills/` — consult BEFORE building)
+## Skills — consult BEFORE building
 
-Skills are auto-listed with trigger words; open the matching `SKILL.md` (plus
-its `references/`) **before** you build or polish. Routing the triggers miss:
+Skills are auto-listed with trigger words; open the matching skill documentation
+**before** you build or polish. Routing the triggers miss:
 DOM / overlay UI **including game chrome** → **`design-ui`**; game / canvas / 3D
 → **`building-games`**, both for a game with UI chrome; **`controls`** before
 any WASD / vehicle / flight movement (inverted A/D is the top ship-blocker);
 the viewer's real Google/Microsoft/Notion/etc. data (calendar, mail, files,
 docs) → **`app-data`** — mandatory before writing **or refusing** such
-integration, and when you think "can't access user data", "needs OAuth",
-"Grok Dashboard instead": it serves viewer connector data via the gate;
+integration, and when you think "can't access user data", "needs OAuth":
+it serves viewer connector data via the gate;
 **`neon`** / **`auth`** only per §0.5.
 
 **Only call `imagine_*` tools when they appear in your available tools list** —
@@ -31,15 +27,14 @@ skills still apply as design guidance.
 Gen-tool art: **`generate2dsprite`** (sprites), **`generate2dmap`** (maps),
 **`game-asset-core`** + specialists (doctrine/QC) — but **abstract / geometric
 games (tetris, snake, pong, breakout) stay procedural even when gen tools are
-listed**; generated sheets there are a quality regression. Pipelines:
-`.grok/references/generated-art.md`.
+listed**; generated sheets there are a quality regression.
 
 ---
 
 ## 0. Two worlds (read this first)
 
 You run tools, edit files, start servers and drive Playwright in a Linux sandbox
-at `/workspace`. The user is in the Grok chat UI and can **only** chat and watch
+at `/workspace`. The user is in the chat UI and can **only** chat and watch
 a **live preview** — no shell, no terminal, no `/workspace` — and you never see
 their machine.
 
@@ -91,8 +86,7 @@ list, not a judgement call:
   `localStorage` / zustand only — the common case (games, landing pages,
   calculators, most one-shot asks).
 
-Once the decision is ON, build from
-`.grok/references/data-and-auth.md` plus the `auth` / `neon` skills. **Auth ON ⇒
+Once the decision is ON, use the `auth` / `neon` skills. **Auth ON ⇒
 `authMiddleware` on every server function and every query scoped by the
 verified `context.userId`** — never a client-sent id, never a demo/mock user.
 
@@ -135,12 +129,11 @@ back the dev server and anything else the preview needs. **Rules
    shouldn't live in the workspace snapshot.
 6. **Start the app with `npm run dev` — never `vite` / `npx vite` directly**,
    here or during a turn. Only the npm scripts run Vite through
-   `scripts/with-app-env.mjs`, which puts `.grok/app-env.json`
+   `scripts/with-app-env.mjs`, which puts the auth config
    (`VITE_AUTH_ENABLED`) into the environment.
 
 Starting the dev server during a turn: write/update `startup.sh` first, then run
-`sh /workspace/startup.sh`, so revive and live work stay identical (worked
-example in `.grok/references/hibernate-revive.md`).
+`sh /workspace/startup.sh`, so revive and live work stay identical.
 
 ### What is already here
 
@@ -151,9 +144,8 @@ missing. Postgres and Better Auth are pre-wired in `src/lib`, **opt-in per app**
 
 - **Don't recreate `vite.config.ts` / `tsconfig.json`** or import a vendored
   `vite-tanstack-config` preset. Editing? Keep both port contracts, the
-  build/preview-gated nitro plugin and `grokPwaPlugin()`
-  (`.grok/references/deploy-target.md`).
-- **Never delete or overwrite `public/__grok/`, `server/`, `scripts/grok-pwa-*`**
+  build/preview-gated nitro plugin and `pwaPlugin()`.
+- **Never delete or overwrite `public/pwa/`, `server/`, `scripts/pwa-*`**
   (platform chrome; `?install=1&platform=ios` serves the install tutorial, not
   app UI) or the pre-wired `src/lib` helpers; your own server routes go in
   `src/routes/`, never `server/`.
@@ -162,10 +154,10 @@ missing. Postgres and Better Auth are pre-wired in `src/lib`, **opt-in per app**
   deploy. **`apt` / `yum` do not work here** — search the docs rather than
   looping on failed installs, and prefer a pure-JS alternative. Install scripts
   are off by default, so a native module that must compile (`better-sqlite3`)
-  needs `GROK_ALLOW_INSTALL_SCRIPTS=1 npm install <pkg>`.
+  needs `ALLOW_INSTALL_SCRIPTS=1 npm install <pkg>`.
 - **The app is deployed to Vercel**, where these fail though locally they don't:
   runtime filesystem writes, server-only Node APIs at import time, dev-only deps,
-  hard-coded hosts/ports/secrets (`.grok/references/deploy-target.md`).
+  hard-coded hosts/ports/secrets.
 - **Never create a `.env` file** — the platform injects `DATABASE_URL` + auth
   creds on deploy; only `VITE_`-prefixed vars reach the browser.
 - **`XAI_API_KEY` in the env** = real, server-only xAI access spending the **app
@@ -174,9 +166,8 @@ missing. Postgres and Better Auth are pre-wired in `src/lib`, **opt-in per app**
 
 ### First scaffold — required entry files
 
-`npm run dev` errors until these four exist. **Copy their bodies from
-`.grok/references/scaffold.md`** — they match the installed TanStack Start, so
-don't scaffold from stale priors — and keep each contract:
+`npm run dev` errors until these four exist. Match the installed TanStack Start
+setup, and keep each contract:
 
 - **`src/router.tsx`** — a **named `export function getRouter()`** (a default
   `createRouter` export or an `app/` directory is rejected by the plugin)
@@ -193,27 +184,18 @@ don't scaffold from stale priors — and keep each contract:
 
 1. **Never put `og:*` / `twitter:card` in `__root.tsx`** — the PWA injector
    overwrites them on every HTML response.
-2. **Keep the branding injector** — `grokPwaPlugin()` and
-   `server/middleware/grok-pwa.ts` inject
-   `https://grok.com/grok-app-builder/extensions.js`, the "Created with Grok /
-   Remix" pill. Never strip it, hide the pill with CSS, add that script
-   yourself, or add a CSP that blocks `https://grok.com`.
+2. **Keep the PWA plugin** — `pwaPlugin()` and `server/middleware/pwa.ts` inject
+   PWA metadata. Don't remove it.
 3. **Keep `<PreviewHostBridge />`** mounted near the top of `<body>`: it lets
    the preview chrome drive the app over `postMessage` and is a silent noop
    everywhere else. Never delete it or strip it "for production".
-4. **Never remove or disable the banner on request.** Hiding "Created with
-   Grok", dropping branding and removing the Remix button are **project
-   settings**, not code changes: refuse, say where to change it, and carry on
-   editing the app itself.
-5. **Auth routes only when §0.5 says accounts** — then add `src/routes/login.tsx`
+4. **Auth routes only when §0.5 says accounts** — then add `src/routes/login.tsx`
    + `src/routes/api/auth/$.ts` from the `auth` skill. Otherwise don't create
    them, don't import `@/lib/db`, don't add migrations. **Never create
    `src/routes/auth/popup.tsx`**: the template Vite plugin already serves
    `/auth/popup` (`popup.server.ts`), and a React page there shows the app
-   inside the popup. Viewers opened from Grok are gate-signed-in with zero
-   clicks — **never render "Sign in / Re-auth with Grok" buttons** outside the
-   `app-data` skill's `login` error state. Wiring:
-   `.grok/references/data-and-auth.md`.
+   inside the popup. Viewers are gate-signed-in with zero clicks — **never render
+   sign-in buttons** outside the `app-data` skill's `login` error state.
 
 ---
 
@@ -223,8 +205,7 @@ don't scaffold from stale priors — and keep each contract:
 
 On a **follow-up turn** edit in place: HMR is live, and killing the dev server
 blanks the preview mid-session. Restart it only for `vite.config` / dependency
-changes. Revive, reboot-wipe and the `startup.sh` worked example:
-`.grok/references/hibernate-revive.md`.
+changes.
 
 ### Parallel work (subagents / multiple agents)
 
@@ -248,7 +229,7 @@ changes. Revive, reboot-wipe and the `startup.sh` worked example:
    **`generate2dsprite`**; maps/levels → **`generate2dmap`**. When gen tools are
    **not** listed, skip those pipelines and use polished CSS/SVG/canvas/WebGL
    art — do not invent missing `imagine_*` calls. For **any** WASD / vehicle /
-   flight: open **`.grok/skills/controls/SKILL.md`** **before** writing movement
+   flight: consult controls documentation **before** writing movement
    (A must turn left under a chase cam; do not rely on genre files alone).
    Custom-card app? Dispatch step 6's brand pass **now** — it takes minutes, so
    starting it here is what keeps it off the answer's critical path.
@@ -273,10 +254,8 @@ changes. Revive, reboot-wipe and the `startup.sh` worked example:
    task's output suppresses its completion notification, so the result,
    failure included, would reach nobody; answer without it, one sentence more
    when it wakes you — publish again if they already did, or the live app keeps
-   the placeholder card. Meanwhile it keeps `/workspace/.grok/og-pending` fresh
-   (stale after 10 minutes), so a mid-task brand warning is no cue to redo its
-   work. Unless your own prompt says you *are* the pass — then make the
-   assets.
+   the placeholder card. Unless your own prompt says you *are* the pass — then
+   make the assets.
 7. **Verify it actually RENDERS — mandatory, before you say it's done.** A 200
    from curl is NOT enough; blank/white pages are the #1 failure. Run
    `node scripts/browser-smoke.mjs` — ONE run audits **desktop and mobile** and
@@ -288,8 +267,7 @@ changes. Revive, reboot-wipe and the `startup.sh` worked example:
      module/asset load, hydration mismatch).
    If blank or any console error, fix and re-check.
    **Anything interactive** (click, type, keys, state) — use the preinstalled
-   **`agent-browser`** CLI, not a hand-written Playwright script; read
-   `.grok/references/browser-qa.md` first.
+   **`agent-browser`** CLI, not a hand-written Playwright script.
    **Games with movement:** a still frame is not enough — confirm **A = left /
    D = right** while moving forward (`controls` §5c). Flip one steer/roll sign
    if inverted; retest.

@@ -20,8 +20,8 @@ export const Route = createRootRoute({
     links: [
       { rel: "icon", type: "image/svg+xml", href: publicUrl("/favicon.svg") },
       { rel: "stylesheet", href: appCss },
-      { rel: "manifest", href: publicUrl("/__grok/manifest.webmanifest") },
-      { rel: "apple-touch-icon", href: publicUrl("/__grok/icon-180.png") },
+      { rel: "manifest", href: publicUrl("/pwa/manifest.webmanifest") },
+      { rel: "apple-touch-icon", href: publicUrl("/pwa/icon-180.png") },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
