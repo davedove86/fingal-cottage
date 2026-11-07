@@ -6,14 +6,14 @@ import {
 } from "jose";
 import { env, isWorkspacePreview } from "../env.server.ts";
 
-export const GATE_IDENTITY_HEADER = "x-gate-identity";
+export const GATE_IDENTITY_HEADER = "x-grok-identity";
 export const GATE_JWKS_PATH = "/__gate/identity-key";
 
 const JWKS_CACHE_TTL_MS = 300_000;
 const PREVIEW_AUDIENCE = "preview";
 export const PREVIEW_GATE_ORIGIN = "http://127.0.0.1:6014";
-const FALLBACK_EMAIL_DOMAIN = "viewer.gate.invalid";
-const FALLBACK_NAME = "Gate user";
+const FALLBACK_EMAIL_DOMAIN = "viewer.grok.invalid";
+const FALLBACK_NAME = "Grok user";
 
 export type GateIdentity = {
   sub: string;
